@@ -18,7 +18,7 @@ class API_v1_0 {
 
     $this->auth = null;
 
-    $this->baseUrl = "https://api.mysportsfeeds.com/api/feed/pull";
+    $this->baseUrl = "https://api.mysportsfeeds.com/pull";
 
     $this->verbose = $verbose;
     $this->storeType = $storeType;
@@ -131,17 +131,15 @@ class API_v1_0 {
     }
 
     $params = [];
+    $cachekey = '';
 
-
-  
     # iterate over args and assign vars
     foreach ( $kvParams[0] as $kvPair ) {
       $pieces = explode("=", $kvPair);
 
       $key = trim($pieces[0]);
       $value = trim($pieces[1]);
-      $cachekey = '';
-
+      
       if ( $key == 'league' ) {
         $league = $value;
       } elseif ( $key == 'season' ) {
@@ -150,8 +148,7 @@ class API_v1_0 {
         $feed = $value;
       } elseif ( $key == 'format' ) {
         $format = $value;
-      }
-        else {
+      } else {
         $params[$key] = $value;
       }
     }
